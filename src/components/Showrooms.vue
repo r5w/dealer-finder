@@ -1,11 +1,19 @@
 <template>
   <div class="showrooms">
-    <input v-model="message" placeholder="edit me">
-      <button v-if="message" v-on:click="fetchData(message)">click</button>
-      <p>Message is: {{ message }}</p>
+    <form>
+      <fieldset>
+        <input v-model="postcode" placeholder="Enter a postcode">
+        <button v-if="postcode" v-on:click.prevent="fetchData(postcode)">click</button>
+      </fieldset>
+    </form>
+    <table>
+      <thead>
+        <td></td>
+      </thead>
+      <tbody>
         <showroom v-for="showroom in showrooms" v-bind:item="showroom"></showroom>
-
-    
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -16,8 +24,7 @@ export default {
   name: 'showrooms',
   data: function () {
     return {
-      message: '',
-      custommessage: 'test message from Showrooms',
+      postcode: '',
       showrooms: [],
       companies: [],
       isLoading: false,
@@ -42,9 +49,9 @@ export default {
       // if (this.showrooms.length < 1) {
       // GET /someUrl
    //   this.$http.get('https://jsonplaceholder.typicode.com/users').then((response) => {
-      this.$http.get(this.fetchPath + 'getNearestDealersAnyStove?sourcepostcode=' + this.message).then((response) => {
+      this.$http.get(this.fetchPath + 'getNearestDealersAnyStove?sourcepostcode=' + this.postcode).then((response) => {
           // success callback
-        console.log(response.data)
+        // console.log(response.data)
         // this.showrooms = JSON.parse(response.data)
         this.showrooms = response.data.data
       }, (response) => {
@@ -55,7 +62,7 @@ export default {
     }
   },
   created: function () {
-    console.log('hi from showrooms ', this.showrooms)
+    // console.log('hi from showrooms ', this.showrooms)
     this.fetchData()
   }
 }
@@ -63,5 +70,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+ input:not([type=submit]):not([type=file]) {
+   font-size:3em;
+}
 </style>

@@ -31,9 +31,23 @@ new Vue({
   router,
   template: `
   <div id="app">
-  <router-link to="/dealers">dealers</router-link>
-  <router-link to="/showrooms">showrooms</router-link>
+  <main class="wrapper">
+  <nav class="navigation">
+  <section class="container">
+  <ul class="navigation-list">
+  <li class="navigation-item">
+  <router-link class="navigation-link" to="/dealers">dealers</router-link>
+  </li>
+   <li class="navigation-item">
+  <router-link class="navigation-link" to="/showrooms">showrooms</router-link>
+  </li>
+  </ul>
+  </section>
+  </nav>
+  <section class="container">
   <router-view></router-view>
+  </section>
+  </main>
   </div>
   `
 //  render: h => h(App)
