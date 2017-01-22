@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: 'showroom',
+  name: 'dealer',
   data () {
     return {
       items: []

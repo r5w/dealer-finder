@@ -4,6 +4,7 @@ import Vue from 'vue'
 // import App from './App'
 import Showrooms from './components/Showrooms'
 import Dealers from './components/Dealers'
+import User from './components/User'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 
@@ -31,25 +32,29 @@ new Vue({
   router,
   template: `
   <div id="app">
-  <main class="wrapper">
-  <nav class="navigation">
-  <section class="container">
-  <ul class="navigation-list">
-  <li class="navigation-item">
-  <router-link class="navigation-link" to="/dealers">dealers</router-link>
-  </li>
-   <li class="navigation-item">
-  <router-link class="navigation-link" to="/showrooms">showrooms</router-link>
-  </li>
-  </ul>
-  </section>
-  </nav>
-  <section class="container">
-  <router-view></router-view>
-  </section>
-  </main>
-  </div>
-  `
+    <main class="wrapper">
+        <nav class="navigation">
+            <section class="container">
+                <ul class="navigation-list">
+                    <li class="navigation-item">
+                        <router-link class="navigation-link" to="/dealers">dealers</router-link>
+                    </li>
+                    <li class="navigation-item">
+                        <router-link class="navigation-link" to="/showrooms">showrooms</router-link>
+                    </li>
+                </ul>
+            </section>
+        </nav>
+        <div class="container">
+        <section class="row">
+              <user class="column-30"></user>
+              <router-view class="column-70"></router-view>
+        </section>
+        </div>
+    </main>
+</div>
+  `,
+  components: {'user': User}
 //  render: h => h(App)
 }).$mount('#app')
 

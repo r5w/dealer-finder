@@ -12,12 +12,16 @@
         </div>
       </fieldset>
     </form>
+    <div v-if="isLoading"><h2>Loading...</h2></div>   
     <table>
       <thead>
         <td></td>
       </thead>
       <tbody>
-        <showroom v-for="showroom in showrooms" v-bind:item="showroom"></showroom>
+        <tr v-if="nearestShowrooms.length>0">
+          <td>Showing 3 nearestShowrooms</td>
+        </tr>
+        <showroom v-for="showroom in nearestShowrooms" v-bind:item="showroom"></showroom>
       </tbody>
     </table>
   </div>
@@ -32,6 +36,7 @@ export default {
     return {
       postcode: '',
       showrooms: [],
+      nearestShowrooms: [],
       companies: [],
       isLoading: false,
       fetchError: null,
@@ -55,11 +60,14 @@ export default {
       // if (this.showrooms.length < 1) {
       // GET /someUrl
    //   this.$http.get('https://jsonplaceholder.typicode.com/users').then((response) => {
+      this.isLoading = true
       this.$http.get(this.fetchPath + 'getNearestDealersAnyStove?sourcepostcode=' + this.postcode).then((response) => {
           // success callback
         // console.log(response.data)
         // this.showrooms = JSON.parse(response.data)
         this.showrooms = response.data.data
+        this.nearestShowrooms = this.showrooms.slice(0, 3)
+        this.isLoading = false
       }, (response) => {
       // error callback
         console.log('failed to load...with loader...')
@@ -69,7 +77,7 @@ export default {
   },
   created: function () {
     // console.log('hi from showrooms ', this.showrooms)
-    this.fetchData()
+    // this.fetchData()
   }
 }
 </script>
