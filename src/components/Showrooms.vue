@@ -2,8 +2,14 @@
   <div class="showrooms">
     <form>
       <fieldset>
-        <input v-model="postcode" placeholder="Enter a postcode">
-        <button v-if="postcode" v-on:click.prevent="fetchData(postcode)">click</button>
+        <div class="row">
+        <div class="column-50">
+        <input class v-model="postcode" placeholder="Enter a postcode">
+        </div>
+        <div class="column-50">
+        <button class="largeButton" v-if="postcode" v-on:click.prevent="fetchData(postcode)">click</button>
+        </div>
+        </div>
       </fieldset>
     </form>
     <table>
@@ -72,5 +78,8 @@ export default {
 <style scoped>
  input:not([type=submit]):not([type=file]) {
    font-size:3em;
+}
+.largeButton{
+  font-size:3rem;
 }
 </style>

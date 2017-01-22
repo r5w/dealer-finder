@@ -4,7 +4,7 @@
     <dl class="column-50">
       <dt class="uppercase"><strong>{{item.company.sage_account_name }}</strong></dt>
      <dl>{{concatenatedAddress}}</dl>
-     <a href="#" class="button">See stoves on display</a>
+     <a href="#" class="button button-outline">See stoves on display</a>
   </td>
   </tr>
 </template>
@@ -69,4 +69,5 @@ export default {
     margin-bottom:0.5em;
 }
 .uppercase{ text-transform:uppercase;}
+.largeText{font-size:2rem;}
 </style>
