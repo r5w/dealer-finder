@@ -3,10 +3,10 @@
     <form>
       <fieldset>
         <div class="row">
-        <div class="column-50">
+        <div class="column">
         <input class v-model="postcode" placeholder="Enter a postcode">
         </div>
-        <div class="column-50">
+        <div class="column">
         <button class="largeButton" v-if="postcode" v-on:click.prevent="fetchData(postcode)">click</button>
         </div>
         </div>
@@ -65,9 +65,13 @@ export default {
           // success callback
         // console.log(response.data)
         // this.showrooms = JSON.parse(response.data)
-        this.showrooms = response.data.data
-        this.nearestShowrooms = this.showrooms.slice(0, 3)
-        this.isLoading = false
+        if (response.valid) {
+          this.showrooms = response.data.data
+          this.nearestShowrooms = this.showrooms.slice(0, 3)
+          this.isLoading = false
+        } else {
+          return false
+        }
       }, (response) => {
       // error callback
         console.log('failed to load...with loader...')

@@ -1,5 +1,5 @@
 <template>
-  <div class="user">
+  <div>
     <ul>
       <li v-for="item in choices">{{ item.title}}</li>
     </ul>      

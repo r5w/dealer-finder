@@ -3,10 +3,10 @@
 <form>
       <fieldset>
         <div class="row">
-        <div class="column-50">
+        <div class="column">
         <input class v-model="postcode" placeholder="Enter a postcode">
         </div>
-        <div class="column-50">
+        <div class="column">
         <button class="largeButton" v-if="postcode" v-on:click.prevent="fetchData(postcode)">click</button>
         </div>
         </div>

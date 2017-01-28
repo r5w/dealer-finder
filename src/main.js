@@ -45,11 +45,11 @@ new Vue({
                 </ul>
             </section>
         </nav>
-        <div class="container">
-        <section class="row">
-              <user class="column-30"></user>
-              <router-view class="column-70"></router-view>
-        </section>
+        <div class="container" style="margin-top:10em;>
+        <div class="row">
+              <user class="column-25"></user>
+              <router-view class="column-75"></router-view>
+        </div>
         </div>
     </main>
 </div>
