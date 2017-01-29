@@ -3,10 +3,10 @@
 <form>
       <fieldset>
         <div class="row">
-        <div class="column">
+        <div class="column column-50">
         <input class v-model="postcode" placeholder="Enter a postcode">
         </div>
-        <div class="column">
+        <div class="column column-30">
         <button class="largeButton" v-if="postcode" v-on:click.prevent="fetchData(postcode)">click</button>
         </div>
         </div>
@@ -21,6 +21,7 @@
 
 <script>
 import Dealer from '../components/Dealer'
+import Bus from '../bus'
 export default {
   name: 'dealers',
   data: function () {
@@ -59,6 +60,7 @@ export default {
         this.dealers = response.data.data
         this.nearestDealers = this.dealers.slice(0, 3)
         this.isLoading = false
+        Bus.$emit('event-name', {title: this.postcode, value: this.postcode})
       }, (response) => {
       // error callback
         console.log('failed to load...with loader...')
@@ -69,6 +71,14 @@ export default {
   created: function () {
     // console.log('hi from showrooms ', this.showrooms)
    // this.fetchData()
+    // triggered to do something..
+    Bus.$on('searchPostcode', (someData) => {
+      this.postcode = someData
+      this.fetchData(someData)
+     // this.rememberChoices(someData)
+     // console.log(someData.title, someData.value)
+      // do something
+    })
   }
 }
 </script>
@@ -76,9 +86,13 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 input:not([type=submit]):not([type=file]) {
-   font-size:3em;
+   font-size:1.7em;
 }
 .largeButton{
   font-size:3rem;
 }
+  .dealers{
+    border-left:1px solid gray;
+    padding: 1em 2em;
+  }
 </style>
