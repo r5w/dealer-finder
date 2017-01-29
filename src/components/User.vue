@@ -61,13 +61,16 @@ export default {
     font-size:2rem;
     padding: 1em;
   }
-  .user h1{
+  h1{
     font-size: 0.9em;
     font-weight:bold;
     text-transform: uppercase;
   }
-  .user ul{
+  ul{
     list-style-type: none;
     }
+  li span {
+    cursor: pointer;
+  }
 
 </style>

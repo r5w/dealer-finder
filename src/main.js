@@ -4,6 +4,7 @@ import Vue from 'vue'
 // import App from './App'
 import Showrooms from './components/Showrooms'
 import Dealers from './components/Dealers'
+import Products from './components/Products'
 import User from './components/User'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
@@ -15,6 +16,7 @@ const router = new VueRouter({
   mode: 'history',
   base: __dirname,
   routes: [
+    {path: '/products', component: Products},
     {path: '/showrooms', component: Showrooms},
     {path: '/dealers', component: Dealers}
   ]
@@ -36,6 +38,9 @@ new Vue({
         <nav class="navigation">
             <section class="container">
                 <ul class="navigation-list">
+                    <li class="navigation-item">
+                        <router-link class="navigation-link" to="/products">products</router-link>
+                    </li>
                     <li class="navigation-item">
                         <router-link class="navigation-link" to="/dealers">dealers</router-link>
                     </li>
