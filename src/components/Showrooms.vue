@@ -21,6 +21,7 @@
         <tr v-if="nearestShowrooms.length>0">
           <td>Showing 3 nearestShowrooms</td>
         </tr>
+        <gmap :markers="markers"></gmap>
         <showroom v-for="showroom in nearestShowrooms" v-bind:item="showroom"></showroom>
       </tbody>
     </table>
@@ -29,6 +30,7 @@
 
 <script>
 import Showroom from '../components/Showroom'
+import Gmap from '../components/Gmap'
 
 export default {
   name: 'showrooms',
@@ -40,11 +42,17 @@ export default {
       companies: [],
       isLoading: false,
       fetchError: null,
-      fetchPath: 'http://zone.aradastoves.com/api/v1/'
+      fetchPath: 'http://zone.aradastoves.com/api/v1/',
+      markers: [{
+        position: {lat: 10.0, lng: 10.0}
+      }, {
+        position: {lat: 11.0, lng: 11.0}
+      }]
     }
   },
   components: {
-    'showroom': Showroom
+    'showroom': Showroom,
+    'gmap': Gmap
   },
   watch: {
     '$route': function () {

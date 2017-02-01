@@ -8,9 +8,12 @@ import Products from './components/Products'
 import User from './components/User'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
+import Gmap from './components/Gmap'
+// import * as VueGoogleMaps from 'vue2-google-maps'
 
 Vue.use(VueResource)
 Vue.use(VueRouter)
+// Vue.use(VueGoogleMaps)
 
 const router = new VueRouter({
   mode: 'history',
@@ -65,7 +68,14 @@ new Vue({
     </main>
 </div>
   `,
-  components: {'user': User}
+  components: {'user': User, 'gmap': Gmap},
+  data: {
+    markers: [{
+      position: {lat: 10.0, lng: 10.0}
+    }, {
+      position: {lat: 11.0, lng: 11.0}
+    }]
+  }
 //  render: h => h(App)
 }).$mount('#app')
 

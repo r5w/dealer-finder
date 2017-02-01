@@ -15,12 +15,14 @@
     <div v-if="isLoading"><h2>Loading...</h2></div>   
     <ul>
       <li v-for="item in nearestDealers">{{ item.company.sage_account_name}}</li>
-    </ul>      
+    </ul>
+    <gmap :markers="nearestDealerMarkers"></gmap>     
   </div>
 </template>
 
 <script>
 import Dealer from '../components/Dealer'
+import Gmap from '../components/Gmap'
 import Bus from '../bus'
 export default {
   name: 'dealers',
@@ -29,14 +31,21 @@ export default {
       postcode: '',
       dealers: [],
       nearestDealers: [],
+      nearestDealerMarkers: [],
       companies: [],
       isLoading: false,
       fetchError: null,
-      fetchPath: 'http://zone.aradastoves.com/api/v1/'
+      fetchPath: 'http://zone.aradastoves.com/api/v1/',
+      markers: [{
+        position: {lat: 10.0, lng: 10.0}
+      }, {
+        position: {lat: 11.0, lng: 11.0}
+      }]
     }
   },
   components: {
-    'dealer': Dealer
+    'dealer': Dealer,
+    'gmap': Gmap
   },
   watch: {
     '$route': function () {
@@ -59,6 +68,7 @@ export default {
         // this.showrooms = JSON.parse(response.data)
         this.dealers = response.data.data
         this.nearestDealers = this.dealers.slice(0, 3)
+        this.nearestDealerMarkers = this.setMarkers(this.nearestDealers)
         this.isLoading = false
         Bus.$emit('event-name', {title: this.postcode, value: this.postcode})
       }, (response) => {
@@ -66,6 +76,25 @@ export default {
         console.log('failed to load...with loader...')
       })
       // }
+    },
+    setMarkers: function (arr) {
+      let result = []
+      for (var i = 0, len = arr.length; i < len; i++) {
+        // someFn(arr[i]);
+        let newobject = {position:
+          {lat: arr[i].address.lat, lng: arr[i].address.lng}
+        }
+        result.push(newobject)
+      }
+      // console.log(arr)
+      return result
+      /*
+      return [{
+        position: {lat: 7.0, lng: 7.0}
+      }, {
+        position: {lat: 7.5, lng: 7.5}
+      }]
+      */
     }
   },
   created: function () {
