@@ -7,7 +7,7 @@
         <input class v-model="postcode" placeholder="Enter a postcode">
         </div>
         <div class="column column-30">
-        <button class="largeButton" v-if="postcode" v-on:click.prevent="fetchData(postcode)">click</button>
+        <button class="largeButton"  v-on:click.prevent="fetchData(postcode)">click</button>
         </div>
         </div>
       </fieldset>
@@ -16,7 +16,8 @@
     <ul>
       <li v-for="item in nearestDealers">{{ item.company.sage_account_name}}</li>
     </ul>
-    <gmap :markers="nearestDealerMarkers"></gmap>     
+    <gmap ref="dealergmap" :markers="nearestDealerMarkers"  :bounds="nearestDealerMarkers" ></gmap>
+    <div  class="column" style="padding:1em;height:auto;background-color:yellow;display:block;font-size:0.7em;">Map bounds:<pre>{{ $data }}</pre><div>    
   </div>
 </template>
 
@@ -28,10 +29,11 @@ export default {
   name: 'dealers',
   data: function () {
     return {
-      postcode: '',
+      postcode: 'EX13 5HU',
       dealers: [],
       nearestDealers: [],
       nearestDealerMarkers: [],
+      center: {lat: 10.0, lng: 10.0},
       companies: [],
       isLoading: false,
       fetchError: null,
@@ -69,7 +71,10 @@ export default {
         this.dealers = response.data.data
         this.nearestDealers = this.dealers.slice(0, 3)
         this.nearestDealerMarkers = this.setMarkers(this.nearestDealers)
+       // this.center = this.setCentre(this.nearestDealers)
         this.isLoading = false
+        // this.$refs.dealergmap.$mapObject.bounds = null
+       // this.panBounds()
         Bus.$emit('event-name', {title: this.postcode, value: this.postcode})
       }, (response) => {
       // error callback
@@ -79,6 +84,7 @@ export default {
     },
     setMarkers: function (arr) {
       let result = []
+      // let b = new google.maps.LatLngBounds()
       for (var i = 0, len = arr.length; i < len; i++) {
         // someFn(arr[i]);
         let newobject = {position:
@@ -95,6 +101,58 @@ export default {
         position: {lat: 7.5, lng: 7.5}
       }]
       */
+    },
+    setCentre: function (arr) {
+      // console.log(arr[0])
+      // let result = []
+     // for (var i = 0, len = arr.length; i < len; i++) {
+        // someFn(arr[i]);
+      let result = {lat: arr[0].address.lat, lng: arr[0].address.lng}
+      // result.push(newobject)
+      // }
+      return result
+      /*
+      return [{
+        position: {lat: 7.0, lng: 7.0}
+      }, {
+        position: {lat: 7.5, lng: 7.5}
+      }]
+      */
+    },
+    fitBounds: function () {
+      /*
+      var b = new Gmap.Map.LatLngBounds()
+
+      b.extend({
+        lat: 33.972,
+        lng: 35.4054
+      })
+      b.extend({
+        lat: 33.7606,
+        lng: 35.64592
+      })
+
+      this.$refs.mmm.fitBounds(b)
+ */
+    },
+    panBounds: function () {
+      /*
+      var b = new Gmap.Map.LatLngBounds()
+
+      b.extend({
+        lat: 33.972,
+        lng: 35.4054
+      })
+      b.extend({
+        lat: 33.7606,
+        lng: 35.64592
+      })
+      */
+      // this.$refs.dealergmap.$mapObject.fitBounds()
+      // this.$refs.dealergmap.resetBounds(this.nearestDealerMarkers)
+      // console.log(this.$refs.dealergmap.$mapObject)
+     // console.log(Gmap)
+      // this.$refs.dealergmap.mapObject.fitBounds()
     }
   },
   created: function () {
@@ -108,6 +166,12 @@ export default {
      // console.log(someData.title, someData.value)
       // do something
     })
+  },
+  mounted: function () {
+    // this.$refs.dealergmap.resetBounds(this.nearestDealerMarkers)
+    // this.$refs.dealermap.$mapCreated.then(() => // this.$refs.dealergmap.setBounds())
+    // console.log('map is ready'))
+    console.log('map is ready')
   }
 }
 </script>

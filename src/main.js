@@ -8,7 +8,7 @@ import Products from './components/Products'
 import User from './components/User'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
-import Gmap from './components/Gmap'
+// import Gmap from './components/Gmap'
 // import * as VueGoogleMaps from 'vue2-google-maps'
 
 Vue.use(VueResource)
@@ -55,9 +55,9 @@ new Vue({
         </nav>
         <div style="padding-top:4em;">
             <div class="row">
-                <div class="column column-25">
+              <!--  <div class="column column-25">
                     <user></user>
-                </div>
+                </div> -->
                 <div class="column column-75">
                     <div class="row">
                         <router-view></router-view>
@@ -68,13 +68,15 @@ new Vue({
     </main>
 </div>
   `,
-  components: {'user': User, 'gmap': Gmap},
+  components: {'user': User},
   data: {
+/*
     markers: [{
       position: {lat: 10.0, lng: 10.0}
     }, {
       position: {lat: 11.0, lng: 11.0}
     }]
+*/
   }
 //  render: h => h(App)
 }).$mount('#app')
