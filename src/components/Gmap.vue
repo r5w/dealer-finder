@@ -72,7 +72,7 @@ export default {
           // the same as the center you pass it.
           // Instead we update this.center only when the input field is changed.
 
-          console.log('CENTER REPORTED', event)
+         // console.log('CENTER REPORTED', event)
           this.reportedCenter = {
             lat: event.lat(),
             lng: event.lng()
@@ -82,10 +82,16 @@ export default {
           // this.center = _.clone(this.reportedCenter)
         } else if (field === 'bounds') {
           // this.resetBounds()
-          this.zoom = 12
-          this.mapBounds = null
+         // this.zoom = 12
+         // this.mapBounds = null
           this.mapBounds = event
-          console.log('bounds updatd...', event)
+          let b = this.$refs.mmm.$mapObject.getBounds()
+          console.log(b)
+
+         // console.log('bounds updatd...', event)
+          this.setBounds()
+          // let b = this.$refs.mmm.$mapObject.getBounds()
+          this.$refs.mmm.$mapObject.panToBounds(b)
         } else {
           this.$set(this, field, event)
         }
@@ -94,7 +100,17 @@ export default {
         // console.log(this.$refs.mmm.$mapObject.getBounds())
         // let b = new VueGoogleMaps.Map.LatLngBounds()
         let b = this.$refs.mmm.$mapObject.getBounds()
-
+        // console.log(this.markers)
+        for (var i = 0, len = this.markers.length; i < len; i++) {
+          // someFn(arr[i]);
+          // let newobject = this.markers[i]
+          let newobject = { lat: this.markers[i].position.lat, lng: this.markers[i].position.lng }
+         // console.log('newobject', newobject)
+          b.extend(newobject)
+         // this.setCenter(this.reportedCenter)
+          // result.push(newobject)
+        }
+        /*
         b.extend({
           lat: 33.972,
           lng: 35.4054
@@ -103,7 +119,11 @@ export default {
           lat: 33.7606,
           lng: 35.64592
         })
+        */
+        console.log('fitBounds')
         this.$refs.mmm.fitBounds(b)
+        console.log('panToBounds')
+        this.$refs.mmm.$mapObject.panToBounds(b)
       }
     },
     created: function () {
@@ -116,8 +136,8 @@ export default {
         // console.log('map is mounted....')
         console.log(1)
         console.log(2)
+        // this.setBounds()
       })
-      // this.setBounds()
     }
 }
 </script>

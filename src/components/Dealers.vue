@@ -17,7 +17,7 @@
       <li v-for="item in nearestDealers">{{ item.company.sage_account_name}}</li>
     </ul>
     <gmap ref="dealergmap" :markers="nearestDealerMarkers"  :bounds="nearestDealerMarkers" ></gmap>
-    <div  class="column" style="padding:1em;height:auto;background-color:yellow;display:block;font-size:0.7em;">Map bounds:<pre>{{ $data }}</pre><div>    
+    <!--<div  class="column" style="padding:1em;height:auto;background-color:yellow;display:block;font-size:0.7em;">Map bounds:<pre>{{ $data }}</pre><div>    -->
   </div>
 </template>
 
