@@ -1,7 +1,7 @@
 <template>
   <gmap-map class="gmapMain"
     :center="center"
-    :zoom="10"
+    :zoom="zoom"
      ref="mmm"
     @zoom_changed= "update('zoom', $event)"
     @maptypeid_changed= "update('mapType', $event)"
@@ -37,16 +37,17 @@ export default {
       return {
         mapBounds: {},
         reportedCenter: {},
-        zoom: 7,
+        zoom: 10,
         mapType: 'terrain',
-        bounds: [],
-        center: {lat: 8, lng: 8}
+        bounds: []
         // center: {}
       }
     },
     props: {
     //  bounds: {},
+      center: {},
       markers: {}
+      // zoom: {}
     },
     methods: {
       helloFromGmap: function () {
@@ -81,25 +82,25 @@ export default {
           // and see how your browser begins to hang:
           // this.center = _.clone(this.reportedCenter)
         } else if (field === 'bounds') {
-          // this.resetBounds()
+         // this.resetBounds()
          // this.zoom = 12
          // this.mapBounds = null
           this.mapBounds = event
-          let b = this.$refs.mmm.$mapObject.getBounds()
-          console.log(b)
-
-         // console.log('bounds updatd...', event)
-          this.setBounds()
           // let b = this.$refs.mmm.$mapObject.getBounds()
-          this.$refs.mmm.$mapObject.panToBounds(b)
+          // console.log(b)
+
+          // console.log('bounds updatd...', event)
+          // this.setBounds()
+          // let b = this.$refs.mmm.$mapObject.getBounds()
+          // this.$refs.mmm.$mapObject.fitBounds(this.mapBounds)
+          // this.$refs.mmm.$mapObject.panToBounds(b)
         } else {
           this.$set(this, field, event)
         }
       },
-      setBounds: function () {
+      setBounds: function (b) {
         // console.log(this.$refs.mmm.$mapObject.getBounds())
         // let b = new VueGoogleMaps.Map.LatLngBounds()
-        let b = this.$refs.mmm.$mapObject.getBounds()
         // console.log(this.markers)
         for (var i = 0, len = this.markers.length; i < len; i++) {
           // someFn(arr[i]);
@@ -122,8 +123,8 @@ export default {
         */
         console.log('fitBounds')
         this.$refs.mmm.fitBounds(b)
-        console.log('panToBounds')
-        this.$refs.mmm.$mapObject.panToBounds(b)
+       // console.log('panToBounds')
+       // this.$refs.mmm.$mapObject.panToBounds(b)
       }
     },
     created: function () {

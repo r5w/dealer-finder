@@ -16,7 +16,11 @@
     <ul>
       <li v-for="item in nearestDealers">{{ item.company.sage_account_name}}</li>
     </ul>
-    <gmap ref="dealergmap" :markers="nearestDealerMarkers"  :bounds="nearestDealerMarkers" ></gmap>
+        <button @click="fitBounds">
+      Fit Bounds
+    </button>
+
+    <gmap v-if="markersAdded" ref="dealergmap" :markers="nearestDealerMarkers" :zoom="zoom" :center="center"></gmap>
     <!--<div  class="column" style="padding:1em;height:auto;background-color:yellow;display:block;font-size:0.7em;">Map bounds:<pre>{{ $data }}</pre><div>    -->
   </div>
 </template>
@@ -33,16 +37,14 @@ export default {
       dealers: [],
       nearestDealers: [],
       nearestDealerMarkers: [],
-      center: {lat: 10.0, lng: 10.0},
+      center: {lat: 51.0, lng: -2.5},
       companies: [],
       isLoading: false,
       fetchError: null,
       fetchPath: 'http://zone.aradastoves.com/api/v1/',
-      markers: [{
-        position: {lat: 10.0, lng: 10.0}
-      }, {
-        position: {lat: 11.0, lng: 11.0}
-      }]
+      markers: [],
+      markersAdded: false,
+      zoom: 12
     }
   },
   components: {
@@ -73,9 +75,16 @@ export default {
         this.nearestDealerMarkers = this.setMarkers(this.nearestDealers)
        // this.center = this.setCentre(this.nearestDealers)
         this.isLoading = false
-        // this.$refs.dealergmap.$mapObject.bounds = null
        // this.panBounds()
         Bus.$emit('event-name', {title: this.postcode, value: this.postcode})
+        this.markersAdded = true
+        let b = this.$refs.dealergmap
+        console.log(b)
+        // this.$refs.dealergmap.$mapObject.update('bounds', b)
+       // let b = this.$refs.mmm.$mapObject.getBounds()
+        // this.$refs.mmm.$mapObject.getBounds()
+        // this.fitBounds()
+        console.log(this.$refs.dealergmap)
       }, (response) => {
       // error callback
         console.log('failed to load...with loader...')
@@ -121,8 +130,7 @@ export default {
     },
     fitBounds: function () {
       /*
-      var b = new Gmap.Map.LatLngBounds()
-
+      var b = new google.maps.LatLngBounds()
       b.extend({
         lat: 33.972,
         lng: 35.4054
@@ -131,9 +139,10 @@ export default {
         lat: 33.7606,
         lng: 35.64592
       })
-
-      this.$refs.mmm.fitBounds(b)
- */
+      */
+     // this.$refs.mmm.fitBounds()
+      this.$refs.dealergmap.fitBounds()
+      console.logs('fitting bounds...')
     },
     panBounds: function () {
       /*
