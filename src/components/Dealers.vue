@@ -78,13 +78,15 @@ export default {
        // this.panBounds()
         Bus.$emit('event-name', {title: this.postcode, value: this.postcode})
         this.markersAdded = true
-        let b = this.$refs.dealergmap
-        console.log(b)
+        // Bus.$gmapDefaultResizeBus.$emit('resize')
+        // this.$refs.mmm.$mapObject.center_changed()
+        // let b = this.$refs.dealergmap
+       // console.log(b)
         // this.$refs.dealergmap.$mapObject.update('bounds', b)
        // let b = this.$refs.mmm.$mapObject.getBounds()
         // this.$refs.mmm.$mapObject.getBounds()
         // this.fitBounds()
-        console.log(this.$refs.dealergmap)
+       // console.log(this.$refs.dealergmap)
       }, (response) => {
       // error callback
         console.log('failed to load...with loader...')

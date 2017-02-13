@@ -14,6 +14,8 @@
       :clickable="true"
       :draggable="true"
       @click="center=m.position"
+      @bounds_changed= "update('bounds', $event)"
+      @center_changed= "update('reportedCenter', $event)"
     ></gmap-marker>
   </gmap-map>
 </template>
@@ -33,6 +35,7 @@
   })
 
 export default {
+    name: 'googmap',
     data () {
       return {
         mapBounds: {},
@@ -135,8 +138,8 @@ export default {
       console.log('mmm is mounted.....', this.$refs.mmm.$mapCreated)
       this.$refs.mmm.$mapCreated.then(() => {
         // console.log('map is mounted....')
-        console.log(1)
-        console.log(2)
+        // console.log(1)
+        // console.log(2)
         // this.setBounds()
       })
     }
