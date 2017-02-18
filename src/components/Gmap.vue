@@ -14,8 +14,6 @@
       :clickable="true"
       :draggable="true"
       @click="center=m.position"
-      @bounds_changed= "update('bounds', $event)"
-      @center_changed= "update('reportedCenter', $event)"
     ></gmap-marker>
   </gmap-map>
 </template>
