@@ -20,15 +20,37 @@
       Fit Bounds
     </button>
 
-    <gmap v-if="markersAdded" ref="dealergmap" :markers="nearestDealerMarkers" :zoom="zoom" :center="center"></gmap>
+    <!-- <gmap v-if="markersAdded" ref="dealergmap" :markers="nearestDealerMarkers" :zoom="zoom" :center="center"></gmap> _-->
     <!--<div  class="column" style="padding:1em;height:auto;background-color:yellow;display:block;font-size:0.7em;">Map bounds:<pre>{{ $data }}</pre><div>    -->
+
+  <gmap-map class="gmapMain"
+    :center="center"
+    :zoom="zoom"
+     ref="mmm" >
+    <gmap-marker
+      v-for="m in this.nearestDealerMarkers"
+      :position="m.position"
+      :clickable="true"
+      :draggable="true"
+      @click="center=m.position"
+    ></gmap-marker>
+  </gmap-map>
   </div>
 </template>
 
 <script>
 import Dealer from '../components/Dealer'
-import Gmap from '../components/Gmap'
+// import Gmap from '../components/Gmap'
+import * as VueGoogleMaps from 'vue2-google-maps'
+import Vue from 'vue'
 import Bus from '../bus'
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyA6pqtmkPgja6Sq2eAN2jQbJSIarIKtKqk'
+    // v: 'OPTIONAL VERSION NUMBER',
+    // libraries: 'places', //// If you need to use place input
+  }
+})
 export default {
   name: 'dealers',
   data: function () {
@@ -48,8 +70,8 @@ export default {
     }
   },
   components: {
-    'dealer': Dealer,
-    'gmap': Gmap
+    'dealer': Dealer
+    // 'gmap': Gmap
   },
   watch: {
     '$route': function () {
@@ -183,6 +205,8 @@ export default {
     // this.$refs.dealermap.$mapCreated.then(() => // this.$refs.dealergmap.setBounds())
     // console.log('map is ready'))
     console.log('map is ready')
+    let b = new google.maps.LatLngBounds()
+    console.log(b)
   }
 }
 </script>
@@ -195,8 +219,9 @@ input:not([type=submit]):not([type=file]) {
 .largeButton{
   font-size:3rem;
 }
-  .dealers{
-    border-left:1px solid gray;
-    padding: 1em 2em;
-  }
+.dealers{
+  border-left:1px solid gray;
+  padding: 1em 2em;
+}
+.gmapMain{ height:20em;width:30em;}
 </style>

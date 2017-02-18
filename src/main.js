@@ -9,10 +9,17 @@ import User from './components/User'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 // import Gmap from './components/Gmap'
-// import * as VueGoogleMaps from 'vue2-google-maps'
+import * as VueGoogleMaps from 'vue2-google-maps'
 
 Vue.use(VueResource)
 Vue.use(VueRouter)
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyA6pqtmkPgja6Sq2eAN2jQbJSIarIKtKqk'
+    // v: 'OPTIONAL VERSION NUMBER',
+    // libraries: 'places', //// If you need to use place input
+  }
+})
 // Vue.use(VueGoogleMaps)
 
 const router = new VueRouter({
